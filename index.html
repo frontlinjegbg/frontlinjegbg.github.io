@@ -1596,7 +1596,7 @@ function updateHud2(){
 }
 
 // ================= Glenn talks =================
-function speakSv(txt){try{if(!window.speechSynthesis||!MUS)return;const u=new SpeechSynthesisUtterance(txt.replace(/ – /g,'... '));u.lang='sv-SE';const vs=speechSynthesis.getVoices();const v=vs.find(v=>/^sv/i.test(v.lang)&&/male|man|oskar|alvar|mattias/i.test(v.name))||vs.find(v=>/^sv/i.test(v.lang));if(v)u.voice=v;u.rate=.82;u.pitch=0;u.volume=1;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+function speakSv(txt){try{if(!window.speechSynthesis||!MUS)return;const u=new SpeechSynthesisUtterance(txt.replace(/ – /g,'... '));u.lang='sv-SE';const vs=speechSynthesis.getVoices();const v=vs.find(v=>/^sv/i.test(v.lang)&&/male|man|oskar|alvar|mattias/i.test(v.name))||vs.find(v=>/^sv/i.test(v.lang));if(v)u.voice=v;u.rate=.62;u.pitch=0;u.volume=1;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
 const GBG_SAY={'Gott mos änna!':'Gått måås änna!'};
 function glennSay(txt,dur){const el=$('glennSay');el.innerHTML='<b>GLENN:</b> '+txt;el.style.opacity=1;clearTimeout(glennSay.t);glennSay.t=setTimeout(()=>el.style.opacity=0,(dur||7)*1000);speakSv(GBG_SAY[txt]||txt)}
 function hushGlenn(){try{window.speechSynthesis&&speechSynthesis.cancel()}catch(e){}const el=$('glennSay');if(el)el.style.opacity=0}
