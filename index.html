@@ -105,7 +105,7 @@ canvas#gl{position:fixed;inset:0;width:100%;height:100%;display:block}
 #menu .logo svg{width:100%;height:100%}
 .musicBtn{pointer-events:auto;cursor:pointer;font-weight:800;letter-spacing:.15em;font-size:12px;padding:8px 14px;border-radius:4px;border:1px solid rgba(240,180,64,.7);background:rgba(20,24,26,.55);color:#f0b440}
 .musicBtn.off{color:#9a958a;border-color:rgba(255,255,255,.25)}
-#hudMusic{position:absolute;right:calc(14px + env(safe-area-inset-right));top:calc(150px + env(safe-area-inset-top));font-size:10px;padding:6px 9px}
+#hudMusic{position:fixed;z-index:4;right:calc(14px + env(safe-area-inset-right));top:calc(150px + env(safe-area-inset-top));font-size:10px;padding:6px 9px}
 #menuMusic{margin-top:12px}
 @media (min-width:700px){#menu .ctl{grid-template-columns:auto auto auto auto auto auto;gap:4px 14px}#menu .sky{height:min(30vh,260px)}}
 @media (max-height:560px){#menu .ctl{display:none!important}#menu .logo{display:none}}
@@ -132,7 +132,6 @@ canvas#gl{position:fixed;inset:0;width:100%;height:100%;display:block}
   <div id="feed"></div>
   <div id="reload">LADDAR OM…</div>
   <div id="hpWrap"><div id="hpLbl">HÄLSA</div><div id="hpBar"><div id="hp"></div></div></div>
-  <button class="musicBtn" id="hudMusic">♪ MUSIK PÅ</button>
   <div id="bottom"><div id="ammo">30 <small>/ 120</small></div><div id="wpn">KARBIN G-5 · AUTO</div></div>
 </div>
 <div id="touch">
@@ -148,6 +147,7 @@ canvas#gl{position:fixed;inset:0;width:100%;height:100%;display:block}
   <div class="btn" id="bGive">GE GLENN ETT VAPEN</div>
   <div class="btn" id="bPause">II</div>
 </div>
+<button class="musicBtn" id="hudMusic" style="display:none">♪ MUSIK PÅ</button>
 <div class="scr on" id="menu">
   <div class="sky"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax meet">
   <defs>
@@ -255,6 +255,7 @@ canvas#gl{position:fixed;inset:0;width:100%;height:100%;display:block}
 <div class="scr" id="pause">
   <h1>PAUS</h1>
   <button class="go" id="resumeBtn">FORTSÄTT</button>
+  <button class="musicBtn" style="margin-top:14px">♪ MUSIK PÅ</button>
 </div>
 <div class="scr" id="over">
   <div class="tag" id="overTag">STAN HAR FALLIT</div>
@@ -1330,9 +1331,9 @@ function begin(){hushGlenn();initAudio();if(AC&&AC.state==='suspended')AC.resume
   $('menu').classList.remove('on');$('over').classList.remove('on');$('pause').classList.remove('on');$('hud').classList.add('on');if(isTouch){$('touch').classList.add('on');try{document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen().catch(()=>{})}catch(e){}}
   else lockPointer();
   msg('FRONTLINJE: GÖTEBORG','HÅLL GÖTAPLATSEN',2.5)}
-function pause(){if(state!=='play')return;hushGlenn();state='pause';mouseDown=false;$('pause').classList.add('on');if(document.pointerLockElement)document.exitPointerLock()}
+function pause(){if(state!=='play')return;hushGlenn();state='pause';$('hudMusic').style.display='none';mouseDown=false;$('pause').classList.add('on');if(document.pointerLockElement)document.exitPointerLock()}
 function resume(){state='play';$('pause').classList.remove('on');if(AC&&AC.state==='suspended')AC.resume();if(!isTouch)lockPointer()}
-function gameOver(why){hushGlenn();state='over';const T_={glenn:['GLENN HYSÉN HAR FALLIT','DU MISSLYCKADES'],ullevi:['ULLEVI HAR FALLIT','MATCHEN ÄR ÖVER'],p:['STAN HAR FALLIT','DU STUPADE']}[why||'p'];$('overTag').textContent=T_[0];$('overTitle').innerHTML=T_[1].replace(/ (\S+)$/,' <span>$1</span>');mouseDown=false;if(document.pointerLockElement)document.exitPointerLock();
+function gameOver(why){hushGlenn();state='over';$('hudMusic').style.display='none';const T_={glenn:['GLENN HYSÉN HAR FALLIT','DU MISSLYCKADES'],ullevi:['ULLEVI HAR FALLIT','MATCHEN ÄR ÖVER'],p:['STAN HAR FALLIT','DU STUPADE']}[why||'p'];$('overTag').textContent=T_[0];$('overTitle').innerHTML=T_[1].replace(/ (\S+)$/,' <span>$1</span>');mouseDown=false;if(document.pointerLockElement)document.exitPointerLock();
   const nb=score>best;if(nb){best=score;try{localStorage.setItem('gbg_best',best)}catch(e){}}
   $('stats').innerHTML=`Poäng: <b>${score}</b>${nb?' · NYTT REKORD!':''}<br>Våg: <b>${wave}</b> · Nedskjutna: <b>${kills}</b> · Headshots: <b>${heads}</b><br>Bästa: <b>${best}</b>`;
   setTimeout(()=>{$('over').classList.add('on');$('hud').classList.remove('on');$('touch').classList.remove('on')},900)}
@@ -1590,6 +1591,7 @@ function glennTag(){const el=$('glennTag');const g=glenn;if(!g.alive||state!=='p
   const cx=(VP[0]*x+VP[4]*y+VP[8]*z+VP[12])/cw,cy=(VP[1]*x+VP[5]*y+VP[9]*z+VP[13])/cw;el.style.display='block';el.style.left=((cx*.5+.5)*innerWidth)+'px';el.style.top=((-cy*.5+.5)*innerHeight)+'px';
   el.textContent=g.armed?'GLENN ✚':'GLENN';el.className=g.armed?'arm':''}
 function updateHud2(){
+  $('hudMusic').style.display=state==='play'?'block':'none';
   $('gHp').style.width=glenn.hp+'%';$('uHp').style.width=(ULLEVI.hp/ULLEVI.max*100)+'%';
   const m=powerMul();$('duo').style.display=m>1?'block':'none';if(m>1){const n=allyList().filter(a=>Math.hypot(a.x-P.x,a.z-P.z)<35).length;$('duo').textContent='STYRKA ×'+m.toFixed(1).replace('.0','')+' · '+(sideBySide()?'GLENN':'')+(sideBySide()&&n?' + ':'')+(n?n+' GAIS':'')}
   const t=state==='play'?recruitTarget():null;$('prompt').style.display=t?'block':'none';$('bGive').style.display=t&&isTouch?'flex':'none';if(t){const who=t===glenn?'Glenn':'GAIS-spelaren';$('prompt').innerHTML='Tryck <b>E</b> – ge '+who+' ett vapen';$('bGive').textContent='GE '+who.toUpperCase()+' ETT VAPEN'}
