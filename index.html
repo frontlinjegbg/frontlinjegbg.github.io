@@ -96,6 +96,7 @@ canvas#gl{position:fixed;inset:0;width:100%;height:100%;display:block}
 .go:active{transform:scale(.97)}
 .ctl{display:grid;grid-template-columns:auto auto;gap:4px 16px;font-size:13px;opacity:.75;margin-top:14px;text-align:left}
 .ctl b{color:#f0b440;font-weight:700}
+.ctl{align-items:center}.ctlIco{display:block;width:30px;height:30px;justify-self:start}.ctlIco svg{width:100%;height:100%}
 .stats{font-size:16px;line-height:1.8;margin:10px 0}
 .stats b{color:#f0b440}
 #menu .sky{position:absolute;left:0;right:0;bottom:0;height:min(36vh,300px);pointer-events:none;z-index:0;background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(110,124,138,.42) 55%,rgba(110,124,138,.25) 100%)}
@@ -143,13 +144,13 @@ body.touch #hudMusic{right:auto;left:calc(12px + env(safe-area-inset-left));top:
   <div id="joyZone"></div><div id="lookZone"></div>
   <div id="joy"><div id="knob"></div></div>
   <div class="btn" id="bFire">ELD</div>
-  <div class="btn ico" id="bAds"><svg viewBox="0 0 32 32" fill="none" stroke-linecap="round"><defs><mask id="mS" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32"><rect width="32" height="32" fill="#000"/><g stroke="#fff" stroke-width="5"><circle cx="16" cy="16" r="10"/><path d="M16 1.8v7.7M16 22.5v7.7M1.8 16h7.7M22.5 16h7.7"/></g><circle cx="16" cy="16" r="2.8" fill="#fff"/><g stroke="#000" stroke-width="2.6"><circle cx="16" cy="16" r="10"/><path d="M16 1.8v7.7M16 22.5v7.7M1.8 16h7.7M22.5 16h7.7"/></g><circle cx="16" cy="16" r="1.5" fill="#000"/></mask></defs>
-<rect width="32" height="32" fill="rgba(255,120,90,.75)" mask="url(#mS)"/><g stroke="rgba(20,24,26,.45)" stroke-width="2.6"><circle cx="16" cy="16" r="10"/><path d="M16 1.8v7.7M16 22.5v7.7M1.8 16h7.7M22.5 16h7.7"/></g><circle cx="16" cy="16" r="1.5" fill="rgba(20,24,26,.45)"/></svg>
+  <div class="btn ico" id="bAds"><svg viewBox="0 0 32 32" fill="none" stroke-linecap="round"><defs><mask id="mS0" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32"><rect width="32" height="32" fill="#000"/><g stroke="#fff" stroke-width="5"><circle cx="16" cy="16" r="10"/><path d="M16 1.8v7.7M16 22.5v7.7M1.8 16h7.7M22.5 16h7.7"/></g><circle cx="16" cy="16" r="2.8" fill="#fff"/><g stroke="#000" stroke-width="2.6"><circle cx="16" cy="16" r="10"/><path d="M16 1.8v7.7M16 22.5v7.7M1.8 16h7.7M22.5 16h7.7"/></g><circle cx="16" cy="16" r="1.5" fill="#000"/></mask></defs>
+<rect width="32" height="32" fill="rgba(255,120,90,.75)" mask="url(#mS0)"/><g stroke="rgba(20,24,26,.45)" stroke-width="2.6"><circle cx="16" cy="16" r="10"/><path d="M16 1.8v7.7M16 22.5v7.7M1.8 16h7.7M22.5 16h7.7"/></g><circle cx="16" cy="16" r="1.5" fill="rgba(20,24,26,.45)"/></svg>
 </div>
   <div class="btn ico" id="bRel"><svg viewBox="0 0 32 32"><path d="M12.6 27.4V13.5c0-5 1.7-9 3.4-11 1.7 2 3.4 6 3.4 11v13.9z" fill="rgba(20,24,26,.45)" stroke="rgba(255,120,90,.75)" stroke-width="1.2" stroke-linejoin="round"/><path d="M12.6 22.4h6.8" stroke="rgba(255,120,90,.75)" stroke-width="1"/><rect x="11.6" y="27.4" width="8.8" height="3" rx=".6" fill="rgba(20,24,26,.45)" stroke="rgba(255,120,90,.75)" stroke-width="1"/></svg>
 </div>
-  <div class="btn ico" id="bJump"><svg viewBox="0 0 32 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><defs><mask id="mD" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32"><rect width="32" height="32" fill="#000"/><path d="M16 2.5v19M7.5 13.5 16 22l8.5-8.5M4 29h24" stroke="#fff" stroke-width="5.6"/><path d="M16 2.5v19M7.5 13.5 16 22l8.5-8.5M4 29h24" stroke="#000" stroke-width="3.4"/></mask></defs>
-<rect width="32" height="32" fill="rgba(255,120,90,.75)" mask="url(#mD)"/><path d="M16 2.5v19M7.5 13.5 16 22l8.5-8.5M4 29h24" stroke="rgba(20,24,26,.45)" stroke-width="3.4"/></svg>
+  <div class="btn ico" id="bJump"><svg viewBox="0 0 32 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><defs><mask id="mD4" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32"><rect width="32" height="32" fill="#000"/><path d="M16 2.5v19M7.5 13.5 16 22l8.5-8.5M4 29h24" stroke="#fff" stroke-width="5.6"/><path d="M16 2.5v19M7.5 13.5 16 22l8.5-8.5M4 29h24" stroke="#000" stroke-width="3.4"/></mask></defs>
+<rect width="32" height="32" fill="rgba(255,120,90,.75)" mask="url(#mD4)"/><path d="M16 2.5v19M7.5 13.5 16 22l8.5-8.5M4 29h24" stroke="rgba(20,24,26,.45)" stroke-width="3.4"/></svg>
 </div>
   <div class="btn" id="bGive">GE GLENN ETT VAPEN</div>
   <div class="btn" id="bPause">II</div>
@@ -255,7 +256,12 @@ body.touch #hudMusic{right:auto;left:calc(12px + env(safe-area-inset-left));top:
     <b>Högerklick</b><span>Sikte (ADS)</span><b>Shift</b><span>Spring</span><b>C / Ctrl</b><span>Ducka</span><b>R</b><span>Ladda om</span><b>E</b><span>Ge Glenn/GAIS-spelare vapen</span><b>M</b><span>Musik på/av</span>
   </div>
   <div class="ctl" id="ctlTouch" style="display:none">
-    <b>Vänster tumme</b><span>Gå</span><b>Höger tumme</b><span>Sikta</span><b>ELD</b><span>Håll in för att skjuta (dra för att sikta)</span><b>⌖ Sikte</b><span>Zooma in</span><b>Kula</b><span>Ladda om</span><b>Hukande gubbe</b><span>Ducka bakom sandsäckar och bilar</span>
+    <b>Vänster tumme</b><span>Gå</span><b>Höger tumme</b><span>Sikta</span><b>ELD</b><span>Håll in för att skjuta (dra för att sikta)</span><i class="ctlIco"><svg viewBox="0 0 32 32" fill="none" stroke-linecap="round"><defs><mask id="mS1" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32"><rect width="32" height="32" fill="#000"/><g stroke="#fff" stroke-width="5"><circle cx="16" cy="16" r="10"/><path d="M16 1.8v7.7M16 22.5v7.7M1.8 16h7.7M22.5 16h7.7"/></g><circle cx="16" cy="16" r="2.8" fill="#fff"/><g stroke="#000" stroke-width="2.6"><circle cx="16" cy="16" r="10"/><path d="M16 1.8v7.7M16 22.5v7.7M1.8 16h7.7M22.5 16h7.7"/></g><circle cx="16" cy="16" r="1.5" fill="#000"/></mask></defs>
+<rect width="32" height="32" fill="rgba(255,120,90,.75)" mask="url(#mS1)"/><g stroke="rgba(20,24,26,.45)" stroke-width="2.6"><circle cx="16" cy="16" r="10"/><path d="M16 1.8v7.7M16 22.5v7.7M1.8 16h7.7M22.5 16h7.7"/></g><circle cx="16" cy="16" r="1.5" fill="rgba(20,24,26,.45)"/></svg>
+</i><span>Sikte – zooma in</span><i class="ctlIco"><svg viewBox="0 0 32 32"><path d="M12.6 27.4V13.5c0-5 1.7-9 3.4-11 1.7 2 3.4 6 3.4 11v13.9z" fill="rgba(20,24,26,.45)" stroke="rgba(255,120,90,.75)" stroke-width="1.2" stroke-linejoin="round"/><path d="M12.6 22.4h6.8" stroke="rgba(255,120,90,.75)" stroke-width="1"/><rect x="11.6" y="27.4" width="8.8" height="3" rx=".6" fill="rgba(20,24,26,.45)" stroke="rgba(255,120,90,.75)" stroke-width="1"/></svg>
+</i><span>Ladda om</span><i class="ctlIco"><svg viewBox="0 0 32 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><defs><mask id="mD5" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32"><rect width="32" height="32" fill="#000"/><path d="M16 2.5v19M7.5 13.5 16 22l8.5-8.5M4 29h24" stroke="#fff" stroke-width="5.6"/><path d="M16 2.5v19M7.5 13.5 16 22l8.5-8.5M4 29h24" stroke="#000" stroke-width="3.4"/></mask></defs>
+<rect width="32" height="32" fill="rgba(255,120,90,.75)" mask="url(#mD5)"/><path d="M16 2.5v19M7.5 13.5 16 22l8.5-8.5M4 29h24" stroke="rgba(20,24,26,.45)" stroke-width="3.4"/></svg>
+</i><span>Ducka bakom sandsäckar och bilar</span>
   </div>
   <div id="rot">Tips: vänd telefonen till liggande läge.</div>
 </div>
