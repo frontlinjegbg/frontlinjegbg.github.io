@@ -70,7 +70,7 @@ canvas#gl{position:fixed;inset:0;width:100%;height:100%;display:block}
 .btn.ico.act{background:none}.btn.ico.act svg{filter:drop-shadow(0 0 5px #f0b440)}
 #bFire{width:92px;height:92px;right:calc(26px + env(safe-area-inset-right));bottom:calc(96px + env(safe-area-inset-bottom));font-size:14px;border-color:rgba(240,180,64,.9);color:#f0b440}
 #bAds{width:62px;height:62px;right:calc(132px + env(safe-area-inset-right));bottom:calc(150px + env(safe-area-inset-bottom))}
-#bRel{width:54px;height:54px;right:calc(130px + env(safe-area-inset-right));bottom:calc(70px + env(safe-area-inset-bottom))}
+#bKick{width:54px;height:54px;right:calc(130px + env(safe-area-inset-right));bottom:calc(70px + env(safe-area-inset-bottom))}
 #bJump{width:58px;height:58px;right:calc(40px + env(safe-area-inset-right));bottom:calc(20px + env(safe-area-inset-bottom));font-size:10px}
 #bGive{width:auto;height:46px;padding:0 16px;border-radius:23px;left:50%;transform:translateX(-50%);bottom:calc(150px + env(safe-area-inset-bottom));display:none;background:rgba(40,140,70,.7);border-color:#9fe0b0;font-size:12px}
 .mini2{margin-top:6px;width:150px;margin-left:auto}
@@ -146,6 +146,8 @@ body.touch #hudMusic{right:auto;left:calc(12px + env(safe-area-inset-left));top:
   <div class="btn" id="bFire">ELD</div>
   <div class="btn ico" id="bAds"><svg viewBox="0 0 32 32" fill="none" stroke-linecap="round"><defs><mask id="mS0" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32"><rect width="32" height="32" fill="#000"/><g stroke="#fff" stroke-width="5"><circle cx="16" cy="16" r="10"/><path d="M16 1.8v7.7M16 22.5v7.7M1.8 16h7.7M22.5 16h7.7"/></g><circle cx="16" cy="16" r="2.8" fill="#fff"/><g stroke="#000" stroke-width="2.6"><circle cx="16" cy="16" r="10"/><path d="M16 1.8v7.7M16 22.5v7.7M1.8 16h7.7M22.5 16h7.7"/></g><circle cx="16" cy="16" r="1.5" fill="#000"/></mask></defs>
 <rect width="32" height="32" fill="rgba(240,180,64,.9)" mask="url(#mS0)"/><g stroke="rgba(20,24,26,.45)" stroke-width="2.6"><circle cx="16" cy="16" r="10"/><path d="M16 1.8v7.7M16 22.5v7.7M1.8 16h7.7M22.5 16h7.7"/></g><circle cx="16" cy="16" r="1.5" fill="rgba(20,24,26,.45)"/></svg>
+</div>
+  <div class="btn ico" id="bKick"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13" fill="rgba(20,24,26,.45)" stroke="rgba(240,180,64,.9)" stroke-width="1.4"/><path d="M16 10.6l5.1 3.7-1.9 6h-6.4l-1.9-6z" fill="rgba(240,180,64,.9)"/><g stroke="rgba(240,180,64,.9)" stroke-width="1.3" fill="none" stroke-linecap="round"><path d="M16 10.6V3.4M21.1 14.3l6.7-2.4M19.2 20.3l4.4 6M12.8 20.3l-4.4 6M10.9 14.3l-6.7-2.4"/><path d="M11.2 4.4l4.8-1M20.8 4.4l-4.8-1M27.8 11.9l.6 5.2M4.2 11.9l-.6 5.2M23.6 26.3l-4.6 2.1M8.4 26.3l4.6 2.1"/></g></svg>
 </div>
   <div class="btn ico" id="bJump"><svg viewBox="0 0 32 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><defs><mask id="mD2" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32"><rect width="32" height="32" fill="#000"/><path d="M16 2.5v19M7.5 13.5 16 22l8.5-8.5M4 29h24" stroke="#fff" stroke-width="5.6"/><path d="M16 2.5v19M7.5 13.5 16 22l8.5-8.5M4 29h24" stroke="#000" stroke-width="3.4"/></mask></defs>
 <rect width="32" height="32" fill="rgba(240,180,64,.9)" mask="url(#mD2)"/><path d="M16 2.5v19M7.5 13.5 16 22l8.5-8.5M4 29h24" stroke="rgba(20,24,26,.45)" stroke-width="3.4"/></svg>
@@ -246,19 +248,20 @@ body.touch #hudMusic{right:auto;left:calc(12px + env(safe-area-inset-left));top:
 </div>
   <div class="tag" style="letter-spacing:.12em;font-size:13px;max-width:520px;line-height:1.4">Ett spel där du försvarar det vackraste vi har; GAIS och Glenn Hysén.</div>
   <h1>FRONTLINJE:<br><span>GÖTEBORG</span></h1>
-  <p>Robotarmén har landstigit vid Lilla Bommen och marscherar mot Avenyn. Håll stan mellan Avenyn, Majorna, kajen och Ullevi. Det regnar, som vanligt.</p>
+  <p>Robotarmén har landstigit vid Lilla Bommen och marscherar mot Avenyn. Håll stan mellan Avenyn, Majorna, kajen och Ullevi – och spela fotboll med GAIS. Det regnar, som vanligt.</p>
   <button class="go" id="startBtn">STARTA</button>
   <button class="musicBtn" id="menuMusic">♪ MUSIK PÅ</button>
   <div class="ctl" id="ctlDesk">
     <b>WASD</b><span>Gå</span><b>Mus</b><span>Sikta</span><b>Vänsterklick</b><span>Skjut</span>
-    <b>Högerklick</b><span>Sikte (ADS)</span><b>Shift</b><span>Spring</span><b>C / Ctrl</b><span>Ducka</span><b>E</b><span>Ge Glenn/GAIS-spelare vapen</span><b>M</b><span>Musik på/av</span>
+    <b>Högerklick</b><span>Sikte (ADS)</span><b>Shift</b><span>Spring</span><b>C / Ctrl</b><span>Ducka</span><b>F</b><span>Spela fotboll – skjut bollen</span><b>E</b><span>Ge Glenn/GAIS-spelare vapen</span><b>M</b><span>Musik på/av</span>
   </div>
   <div class="ctl" id="ctlTouch" style="display:none">
     <b>Vänster tumme</b><span>Gå</span><b>Höger tumme</b><span>Sikta</span><b>ELD</b><span>Håll in för att skjuta (dra för att sikta)</span><i class="ctlIco"><svg viewBox="0 0 32 32" fill="none" stroke-linecap="round"><defs><mask id="mS1" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32"><rect width="32" height="32" fill="#000"/><g stroke="#fff" stroke-width="5"><circle cx="16" cy="16" r="10"/><path d="M16 1.8v7.7M16 22.5v7.7M1.8 16h7.7M22.5 16h7.7"/></g><circle cx="16" cy="16" r="2.8" fill="#fff"/><g stroke="#000" stroke-width="2.6"><circle cx="16" cy="16" r="10"/><path d="M16 1.8v7.7M16 22.5v7.7M1.8 16h7.7M22.5 16h7.7"/></g><circle cx="16" cy="16" r="1.5" fill="#000"/></mask></defs>
 <rect width="32" height="32" fill="rgba(240,180,64,.9)" mask="url(#mS1)"/><g stroke="rgba(20,24,26,.45)" stroke-width="2.6"><circle cx="16" cy="16" r="10"/><path d="M16 1.8v7.7M16 22.5v7.7M1.8 16h7.7M22.5 16h7.7"/></g><circle cx="16" cy="16" r="1.5" fill="rgba(20,24,26,.45)"/></svg>
 </i><span>Sikte – zooma in</span><i class="ctlIco"><svg viewBox="0 0 32 32" fill="none" stroke-linecap="round" stroke-linejoin="round"><defs><mask id="mD3" maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32"><rect width="32" height="32" fill="#000"/><path d="M16 2.5v19M7.5 13.5 16 22l8.5-8.5M4 29h24" stroke="#fff" stroke-width="5.6"/><path d="M16 2.5v19M7.5 13.5 16 22l8.5-8.5M4 29h24" stroke="#000" stroke-width="3.4"/></mask></defs>
 <rect width="32" height="32" fill="rgba(240,180,64,.9)" mask="url(#mD3)"/><path d="M16 2.5v19M7.5 13.5 16 22l8.5-8.5M4 29h24" stroke="rgba(20,24,26,.45)" stroke-width="3.4"/></svg>
-</i><span>Ducka bakom sandsäckar och bilar</span>
+</i><span>Ducka bakom sandsäckar och bilar</span><i class="ctlIco"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13" fill="rgba(20,24,26,.45)" stroke="rgba(240,180,64,.9)" stroke-width="1.4"/><path d="M16 10.6l5.1 3.7-1.9 6h-6.4l-1.9-6z" fill="rgba(240,180,64,.9)"/><g stroke="rgba(240,180,64,.9)" stroke-width="1.3" fill="none" stroke-linecap="round"><path d="M16 10.6V3.4M21.1 14.3l6.7-2.4M19.2 20.3l4.4 6M12.8 20.3l-4.4 6M10.9 14.3l-6.7-2.4"/><path d="M11.2 4.4l4.8-1M20.8 4.4l-4.8-1M27.8 11.9l.6 5.2M4.2 11.9l-.6 5.2M23.6 26.3l-4.6 2.1M8.4 26.3l4.6 2.1"/></g></svg>
+</i><span>Spela fotboll – skjut bollen på Ullevi</span>
   </div>
   <div id="rot">Tips: vänd telefonen till liggande läge.</div>
 </div>
@@ -1302,7 +1305,7 @@ function inNordstan(x,z){return(x>10&&x<58&&z>-90&&z<-82)||(x>30&&x<38&&z>-100&&
 
 // ================= input =================
 let locked=false,fallbackLook=false;
-addEventListener('keydown',e=>{keys[e.code]=true;if(state!=='play')return;if(e.code==='KeyM')setMusic(!MUS.on);if(e.code==='KeyR')startReload();if(e.code==='KeyE')giveWeapon();if(e.code==='KeyC'||e.code==='Space'){crouchHeld=!crouchHeld;$('bJump').classList.toggle('act',crouchHeld)}if(e.code==='KeyP'||e.code==='Escape'){if(!locked)pause()}if(['Space','ArrowUp','ArrowDown'].includes(e.code))e.preventDefault()});
+addEventListener('keydown',e=>{keys[e.code]=true;if(state!=='play')return;if(e.code==='KeyM')setMusic(!MUS.on);if(e.code==='KeyF')kickBall();if(e.code==='KeyR')startReload();if(e.code==='KeyE')giveWeapon();if(e.code==='KeyC'||e.code==='Space'){crouchHeld=!crouchHeld;$('bJump').classList.toggle('act',crouchHeld)}if(e.code==='KeyP'||e.code==='Escape'){if(!locked)pause()}if(['Space','ArrowUp','ArrowDown'].includes(e.code))e.preventDefault()});
 addEventListener('keyup',e=>{keys[e.code]=false});
 canvas.addEventListener('mousedown',e=>{if(isTouch)return;if(state!=='play')return;if(!locked&&!fallbackLook){lockPointer();return}if(e.button===0)mouseDown=true;if(e.button===2)adsHeld=true});
 addEventListener('mouseup',e=>{if(e.button===0)mouseDown=false;if(e.button===2)adsHeld=false});
@@ -1330,6 +1333,7 @@ $('bAds').addEventListener('touchstart',e=>{e.preventDefault();adsHeld=!adsHeld;
 $('bJump').addEventListener('touchstart',e=>{e.preventDefault();crouchHeld=!crouchHeld;$('bJump').classList.toggle('act',crouchHeld)},{passive:false});
 $('bPause').addEventListener('touchstart',e=>{e.preventDefault();pause()},{passive:false});
 $('bGive').addEventListener('touchstart',e=>{e.preventDefault();giveWeapon()},{passive:false});
+$('bKick').addEventListener('touchstart',e=>{e.preventDefault();kickBall();$('bKick').classList.add('act');setTimeout(()=>$('bKick').classList.remove('act'),150)},{passive:false});
 addEventListener('touchmove',tMove,{passive:false});addEventListener('touchend',tEnd);addEventListener('touchcancel',tEnd);
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&state==='play')pause()});
 
@@ -1554,6 +1558,8 @@ function updateMatch(dt){
       const pw=dist<25?R(16,24):R(9,15);b.vx=kx*pw;b.vz=kz*pw;p.cd=.7}}
   const r=M_.ref;{const tx=b.x-6,tz=clamp(b.z+8,PITCH.z0,PITCH.z1),dx=tx-r.x,dz=tz-r.z,d=Math.hypot(dx,dz);const v=d>1?Math.min(4,d):0;r.vx=(d?dx/d:0)*v;r.vz=(d?dz/d:0)*v;r.x+=r.vx*dt;r.z+=r.vz*dt;r.walk+=v*dt*2.6;if(v>.3)r.yaw=Math.atan2(r.vx,r.vz)}
 }
+function kickBall(){const M_=MATCH,b=M_.ball;if(state!=='play'||M_.state!=='play'||!insideUlleviBowl(P.x,P.z))return;const d=Math.hypot(b.x-P.x,b.z-P.z);if(d>2.4)return;
+  const fx=-Math.sin(P.yaw),fz=-Math.cos(P.yaw),pw=24;b.vx=fx*pw;b.vz=fz*pw;M_.pcd=.4;M_.touch='p';M_.touchT=time;SFX.kickBall();SFX.kickBall()}
 function near(m){return Math.hypot(P.x-UC[0],P.z-UC[1])<m}
 function goal(team){const t=MATCH.hs+'–'+MATCH.as;feed('MÅL FÖR '+team+'! GAIS '+t+' DJURGÅRDEN',team==='GAIS'?'#7fdc8f':'#8fc3ea');if(near(160))SFX.cheer(near(70)?1:.4)}
 function drawMatch(){const nearU=Math.hypot(P.x-UC[0],P.z-UC[1])<260;for(const p of MATCH.pl){if(!nearU&&!p.ally)continue;const g=p.team?HG.dif:(p.ally&&!p.injured?HG.gaisArmed:HG.gais);drawHuman(g,p.x,0,p.z,p.yaw,p.walk,p.injured?0:Math.hypot(p.vx,p.vz),p.flash?[p.flash*.6,p.flash*.2,p.flash*.1]:null,1,p.injured?-Math.PI/2:0)}if(!nearU)return;
@@ -1723,7 +1729,7 @@ document.querySelectorAll('.musicBtn').forEach(b=>b.addEventListener('touchstart
 setMusic(MUS.on);
 function skyFit(){const sv=document.querySelector('#menu .sky svg');if(sv)sv.setAttribute('preserveAspectRatio',innerWidth/innerHeight>1.3?'xMidYMax slice':'xMidYMax meet')}skyFit();addEventListener('resize',skyFit);
 requestAnimationFrame(frame);
-window.__G={startInvasion,allyList,powerMul,recruitTarget,MUS,trams,glenn,ULLEVI,MATCH,giveWeapon,setCrouch:v=>{crouchHeld=v},setAds:v=>{adsHeld=v},fire,wn:()=>WORLD.n,step:(n)=>{for(let i=0;i<n;i++){updateGame(.033);updateFx(.033)}},P,enemies:()=>enemies,state:()=>state,begin,boxes,dbg:()=>({wave,toSpawn,inWave,breakT,free:freeCells.length,reach:flow.filter(v=>v>=0).length,pc:cellOf(P.x,P.z),time})};
+window.__G={kickBall,startInvasion,allyList,powerMul,recruitTarget,MUS,trams,glenn,ULLEVI,MATCH,giveWeapon,setCrouch:v=>{crouchHeld=v},setAds:v=>{adsHeld=v},fire,wn:()=>WORLD.n,step:(n)=>{for(let i=0;i<n;i++){updateGame(.033);updateFx(.033)}},P,enemies:()=>enemies,state:()=>state,begin,boxes,dbg:()=>({wave,toSpawn,inWave,breakT,free:freeCells.length,reach:flow.filter(v=>v>=0).length,pc:cellOf(P.x,P.z),time})};
 </script>
 </body>
 </html>
