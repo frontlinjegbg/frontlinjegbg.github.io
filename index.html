@@ -4,6 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>Frontlinje: Göteborg</title>
+<meta name="description" content="Ett spel där du försvarar det vackraste vi har; GAIS och Glenn Hysén.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Frontlinje: Göteborg">
+<meta property="og:description" content="Ett spel där du försvarar det vackraste vi har; GAIS och Glenn Hysén. Håll stan mellan Avenyn, Majorna, kajen och Ullevi.">
+<meta property="og:image" content="https://frontlinjegbg.github.io/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:url" content="https://frontlinjegbg.github.io/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1a1d20">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20512%20512%22%3E%20%3Crect%20width%3D%22512%22%20height%3D%22512%22%20rx%3D%2296%22%20fill%3D%22%231a1d20%22/%3E%20%3Ccircle%20cx%3D%22256%22%20cy%3D%22256%22%20r%3D%22188%22%20fill%3D%22none%22%20stroke%3D%22%23f0b440%22%20stroke-width%3D%2220%22/%3E%20%3Ccircle%20cx%3D%22256%22%20cy%3D%22256%22%20r%3D%22150%22%20fill%3D%22%2322272c%22/%3E%20%3Cg%20stroke%3D%22%23f0b440%22%20stroke-width%3D%2216%22%20stroke-linecap%3D%22round%22%3E%20%3Cpath%20d%3D%22M256%2040V96M256%20416V472M40%20256H96M416%20256H472%22/%3E%20%3C/g%3E%20%3C%21--%20crown%20%28Skansen%20Kronan%29%20--%3E%20%3Cpath%20d%3D%22M176%20262%20L170%20178%20L212%20214%20L256%20160%20L300%20214%20L342%20178%20L336%20262Z%22%20fill%3D%22%23f0b440%22/%3E%20%3Crect%20x%3D%22172%22%20y%3D%22268%22%20width%3D%22168%22%20height%3D%2222%22%20rx%3D%224%22%20fill%3D%22%23f0b440%22/%3E%20%3Ccircle%20cx%3D%22170%22%20cy%3D%22174%22%20r%3D%2211%22%20fill%3D%22%23f0b440%22/%3E%3Ccircle%20cx%3D%22256%22%20cy%3D%22154%22%20r%3D%2212%22%20fill%3D%22%23f0b440%22/%3E%3Ccircle%20cx%3D%22342%22%20cy%3D%22174%22%20r%3D%2211%22%20fill%3D%22%23f0b440%22/%3E%20%3C%21--%20waves%20%28%C3%A4lven%29%20--%3E%20%3Cg%20fill%3D%22none%22%20stroke%3D%22%23e9e4d4%22%20stroke-width%3D%2213%22%20stroke-linecap%3D%22round%22%3E%20%3Cpath%20d%3D%22M150%20326%20q26%20-18%2053%200%20t53%200%20t53%200%20t53%200%22/%3E%20%3Cpath%20d%3D%22M168%20364%20q22%20-15%2044%200%20t44%200%20t44%200%20t44%200%22%20opacity%3D%22.7%22/%3E%20%3C/g%3E%20%3C/svg%3E%20">
+<link rel="apple-touch-icon" href="icon-512.png">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 html,body{width:100%;height:100%;overflow:hidden;background:#1a1d20;font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;color:#e9e4d4;touch-action:none;overscroll-behavior:none}
@@ -82,6 +93,17 @@ canvas#gl{position:fixed;inset:0;width:100%;height:100%;display:block}
 .ctl b{color:#f0b440;font-weight:700}
 .stats{font-size:16px;line-height:1.8;margin:10px 0}
 .stats b{color:#f0b440}
+#menu .sky{position:absolute;left:0;right:0;bottom:0;height:min(36vh,300px);pointer-events:none;z-index:0;background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(110,124,138,.42) 55%,rgba(110,124,138,.25) 100%)}
+#menu .sky svg{width:100%;height:100%;display:block}
+#menu>*:not(.sky){position:relative;z-index:1}
+#menu .logo{width:clamp(64px,13vh,110px);height:clamp(64px,13vh,110px);margin-bottom:10px}
+#menu .logo svg{width:100%;height:100%}
+.musicBtn{pointer-events:auto;cursor:pointer;font-weight:800;letter-spacing:.15em;font-size:12px;padding:8px 14px;border-radius:4px;border:1px solid rgba(240,180,64,.7);background:rgba(20,24,26,.55);color:#f0b440}
+.musicBtn.off{color:#9a958a;border-color:rgba(255,255,255,.25)}
+#hudMusic{position:absolute;right:calc(14px + env(safe-area-inset-right));top:calc(150px + env(safe-area-inset-top));font-size:10px;padding:6px 9px}
+#menuMusic{margin-top:12px}
+@media (min-width:700px){#menu .ctl{grid-template-columns:auto auto auto auto auto auto;gap:4px 14px}#menu .sky{height:min(30vh,260px)}}
+@media (max-height:560px){#menu .ctl{display:none!important}#menu .logo{display:none}}
 #rot{display:none;font-size:12px;opacity:.7;margin-top:10px}
 @media (orientation:portrait){#rot.t{display:block}}
 </style>
@@ -104,6 +126,7 @@ canvas#gl{position:fixed;inset:0;width:100%;height:100%;display:block}
   <div id="feed"></div>
   <div id="reload">LADDAR OM…</div>
   <div id="hpWrap"><div id="hpLbl">HÄLSA</div><div id="hpBar"><div id="hp"></div></div></div>
+  <button class="musicBtn" id="hudMusic">♪ MUSIK PÅ</button>
   <div id="bottom"><div id="ammo">30 <small>/ 120</small></div><div id="wpn">KARBIN G-5 · AUTO</div></div>
 </div>
 <div id="touch">
@@ -117,13 +140,103 @@ canvas#gl{position:fixed;inset:0;width:100%;height:100%;display:block}
   <div class="btn" id="bPause">II</div>
 </div>
 <div class="scr on" id="menu">
+  <div class="sky"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax meet">
+  <defs>
+    <linearGradient id="sw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b3a44"/><stop offset="1" stop-color="#121a20"/></linearGradient>
+  </defs>
+  <!-- back filler city -->
+  <g fill="#2a323a">
+    <path d="M0 262V210h40v-14h30v22h40v-30h26v30h34v-18h30v18h20v44z"/>
+    <path d="M520 262v-40h24v-18h30v24h20v34z"/>
+    <path d="M790 262v-48h22v-16h26v18h14v46z"/>
+    <path d="M915 262v-52h20v-22h24v74z"/>
+    <path d="M1090 262v-46h28v-26h30v20h22v-30h30v82z"/>
+  </g>
+  <g fill="#161b20" stroke="#161b20">
+    <!-- Älvsborgsbron -->
+    <rect x="56" y="118" width="9" height="144" stroke="none"/><rect x="216" y="118" width="9" height="144" stroke="none"/>
+    <rect x="0" y="198" width="285" height="7" stroke="none"/>
+    <path d="M0 168 Q30 150 60 120 Q140 205 220 120 Q250 150 285 168" fill="none" stroke-width="3"/>
+    <g stroke-width="1.4"><path d="M80 140V198M100 157V198M120 168V198M140 172V198M160 168V198M180 157V198M200 140V198M30 150V198M250 150V198"/></g>
+    <!-- hills -->
+    <path d="M260 262 C300 236 330 214 380 212 C420 210 440 230 455 236 C480 214 520 210 560 236 L575 262Z" stroke="none"/>
+    <!-- Sjömanstornet + Sjömanshustrun -->
+    <rect x="300" y="112" width="11" height="110" stroke="none"/><rect x="297" y="108" width="17" height="5" stroke="none"/>
+    <path d="M300 108 l3 -10 h5 l3 10z M303 98 a2.6 2.6 0 1 1 5 0" stroke="none"/>
+    <!-- Masthuggskyrkan -->
+    <rect x="366" y="186" width="70" height="32" stroke="none"/><path d="M362 188 L401 166 L440 188Z" stroke="none"/>
+    <rect x="354" y="146" width="22" height="72" stroke="none"/><path d="M351 148 L365 116 L379 148Z" stroke="none"/>
+    <!-- Skansen Kronan -->
+    <rect x="484" y="168" width="34" height="52" stroke="none"/><rect x="480" y="164" width="42" height="6" stroke="none"/>
+    <path d="M486 164 Q501 140 516 164Z" stroke="none"/><rect x="499" y="138" width="4" height="8" stroke="none"/>
+    <path d="M493 138 l2 -7 3 4 3 -6 3 6 3 -4 2 7z" fill="#f0b440" stroke="none"/>
+    <!-- Barken Viking -->
+    <path d="M572 246 H712 L700 262 H586Z" stroke="none"/>
+    <g stroke-width="2.4"><path d="M592 246V128M622 246V118M652 246V118M682 246V132M712 246 L746 226"/></g>
+    <g stroke-width="1.8"><path d="M578 168H606M576 190H608M606 152H638M604 176H640M602 202H642M636 152H668M634 176H670M632 202H672M670 166H694M668 190H696"/></g>
+    <g stroke-width=".8" fill="none"><path d="M592 128 L572 246M592 128 L612 246M622 118 L600 246M622 118 L644 246M652 118 L630 246M652 118 L674 246M682 132 L662 246M682 132 L704 246M592 128 L622 118 L652 118 L682 132 L746 226"/></g>
+    <!-- Feskekôrka -->
+    <rect x="732" y="222" width="64" height="40" stroke="none"/><path d="M727 224 L764 176 L801 224Z" stroke="none"/>
+    <!-- Poseidon -->
+    <rect x="818" y="232" width="34" height="30" stroke="none"/><rect x="824" y="224" width="22" height="9" stroke="none"/>
+    <path d="M830 224 L831 196 L833 180 L829 170 L831 158 L839 154 L847 158 L849 170 L845 180 L847 196 L848 224 L843 224 L840 196 L837 224Z" stroke="none"/>
+    <circle cx="839" cy="148" r="5" stroke="none"/>
+    <path d="M834 145 l1 -6 2 3 2 -5 2 5 2 -3 1 6z" stroke="none"/>
+    <path d="M847 160 L853 172 L851 184" fill="none" stroke-width="3.2"/>
+    <ellipse cx="852" cy="196" rx="3.2" ry="12" stroke="none"/><path d="M849 184 l-3 -5 M855 184 l3 -5" stroke-width="1.6"/>
+    <path d="M831 160 L823 168 L826 150" fill="none" stroke-width="3.2"/>
+    <path d="M820 152 L828 136 L831 150Z" stroke="none"/>
+    <!-- Läppstiftet -->
+    <rect x="868" y="66" width="34" height="196" stroke="none"/><rect x="872" y="52" width="26" height="16" stroke="none"/><rect x="876" y="42" width="18" height="12" stroke="none"/><rect x="884" y="22" width="2" height="22" stroke="none"/>
+    <g fill="#c42127" stroke="none" opacity=".75"><rect x="868" y="66" width="34" height="5"/><rect x="868" y="92" width="34" height="3"/><rect x="868" y="118" width="34" height="3"/><rect x="868" y="144" width="34" height="3"/><rect x="868" y="170" width="34" height="3"/><rect x="868" y="196" width="34" height="3"/><rect x="872" y="52" width="26" height="4"/></g>
+    <!-- Ullevi -->
+    <path d="M940 262 L944 222 Q1020 204 1096 222 L1100 262Z" stroke="none"/>
+    <path d="M940 222 Q1020 196 1100 222" fill="none" stroke-width="5"/>
+    <rect x="956" y="108" width="5" height="154" stroke="none"/><rect x="1080" y="108" width="5" height="154" stroke="none"/>
+    <g stroke-width=".9" fill="none"><path d="M958 110 L972 212M958 110 L990 208M958 110 L1008 206M1082 110 L1068 212M1082 110 L1050 208M1082 110 L1032 206"/></g>
+    <!-- Liseberg drop tower -->
+    <rect x="1138" y="54" width="7" height="208" stroke="none"/><rect x="1132" y="46" width="19" height="10" stroke="none"/><rect x="1131" y="150" width="21" height="8" stroke="none"/>
+  </g>
+  <!-- lit windows -->
+  <g fill="#f0b440" opacity=".8">
+    <rect x="12" y="222" width="3" height="4"/><rect x="48" y="214" width="3" height="4"/><rect x="118" y="236" width="3" height="4"/><rect x="150" y="226" width="3" height="4"/>
+    <rect x="530" y="236" width="3" height="4"/><rect x="560" y="232" width="3" height="4"/><rect x="802" y="230" width="3" height="4"/><rect x="826" y="210" width="3" height="4"/>
+    <rect x="876" y="80" width="3" height="3"/><rect x="890" y="132" width="3" height="3"/><rect x="882" y="184" width="3" height="3"/><rect x="926" y="226" width="3" height="4"/>
+    <rect x="1100" y="232" width="3" height="4"/><rect x="1160" y="214" width="3" height="4"/><rect x="1178" y="240" width="3" height="4"/>
+  </g>
+  <g fill="#ffe7a0"><circle cx="958" cy="108" r="3"/><circle cx="1083" cy="108" r="3"/></g>
+  <!-- river -->
+  <rect x="0" y="262" width="1200" height="38" fill="url(#sw)"/>
+  <g stroke="#556a78" stroke-width="1.2" opacity=".6"><path d="M40 270h60M160 278h90M320 272h40M470 284h70M600 270h120M780 280h60M880 272h30M980 286h90M1110 274h60"/></g>
+  <g stroke="#c42127" stroke-width="2" opacity=".35"><path d="M874 270h22M878 278h14"/></g>
+</svg>
+</div>
+  <div class="logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#1a1d20"/>
+  <circle cx="256" cy="256" r="188" fill="none" stroke="#f0b440" stroke-width="20"/>
+  <circle cx="256" cy="256" r="150" fill="#22272c"/>
+  <g stroke="#f0b440" stroke-width="16" stroke-linecap="round">
+    <path d="M256 40V96M256 416V472M40 256H96M416 256H472"/>
+  </g>
+  <!-- crown (Skansen Kronan) -->
+  <path d="M176 262 L170 178 L212 214 L256 160 L300 214 L342 178 L336 262Z" fill="#f0b440"/>
+  <rect x="172" y="268" width="168" height="22" rx="4" fill="#f0b440"/>
+  <circle cx="170" cy="174" r="11" fill="#f0b440"/><circle cx="256" cy="154" r="12" fill="#f0b440"/><circle cx="342" cy="174" r="11" fill="#f0b440"/>
+  <!-- waves (älven) -->
+  <g fill="none" stroke="#e9e4d4" stroke-width="13" stroke-linecap="round">
+    <path d="M150 326 q26 -18 53 0 t53 0 t53 0 t53 0"/>
+    <path d="M168 364 q22 -15 44 0 t44 0 t44 0 t44 0" opacity=".7"/>
+  </g>
+</svg>
+</div>
   <div class="tag" style="letter-spacing:.12em;font-size:13px;max-width:520px;line-height:1.4">Ett spel där du försvarar det vackraste vi har; GAIS och Glenn Hysén.</div>
   <h1>FRONTLINJE:<br><span>GÖTEBORG</span></h1>
   <p>Robotarmén har landstigit vid Lilla Bommen och marscherar mot Avenyn. Håll stan mellan Avenyn, Majorna, kajen och Ullevi. Det regnar, som vanligt.</p>
   <button class="go" id="startBtn">STARTA</button>
+  <button class="musicBtn" id="menuMusic">♪ MUSIK PÅ</button>
   <div class="ctl" id="ctlDesk">
     <b>WASD</b><span>Gå</span><b>Mus</b><span>Sikta</span><b>Vänsterklick</b><span>Skjut</span>
-    <b>Högerklick</b><span>Sikte (ADS)</span><b>Shift</b><span>Spring</span><b>C / Ctrl</b><span>Ducka</span><b>R</b><span>Ladda om</span><b>E</b><span>Ge Glenn ett vapen</span>
+    <b>Högerklick</b><span>Sikte (ADS)</span><b>Shift</b><span>Spring</span><b>C / Ctrl</b><span>Ducka</span><b>R</b><span>Ladda om</span><b>E</b><span>Ge Glenn ett vapen</span><b>M</b><span>Musik på/av</span>
   </div>
   <div class="ctl" id="ctlTouch" style="display:none">
     <b>Vänster tumme</b><span>Gå</span><b>Höger tumme</b><span>Sikta</span><b>ELD</b><span>Håll in för att skjuta (dra för att sikta)</span><b>SIKTE</b><span>Zooma in</span><b>DUCKA</b><span>Ta skydd bakom sandsäckar och bilar</span>
@@ -966,6 +1079,7 @@ function initAudio(){if(AC)return;try{AC=new (window.AudioContext||window.webkit
   NOISE=AC.createBuffer(1,AC.sampleRate*2,AC.sampleRate);const d=NOISE.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;
   // rain ambience
   const rn=AC.createBufferSource();rn.buffer=NOISE;rn.loop=true;const f=AC.createBiquadFilter();f.type='bandpass';f.frequency.value=2500;f.Q.value=.4;const g=AC.createGain();g.gain.value=.05;rn.connect(f).connect(g).connect(MASTER);rn.start();
+  setTimeout(musicInit,0);
   const rn2=AC.createBufferSource();rn2.buffer=NOISE;rn2.loop=true;rn2.playbackRate.value=.5;const f2=AC.createBiquadFilter();f2.type='lowpass';f2.frequency.value=300;const g2=AC.createGain();g2.gain.value=.08;rn2.connect(f2).connect(g2).connect(MASTER);rn2.start();
   const cr=AC.createBufferSource();cr.buffer=NOISE;cr.loop=true;cr.playbackRate.value=.8;const cf=AC.createBiquadFilter();cf.type='bandpass';cf.frequency.value=700;cf.Q.value=.6;CROWD=AC.createGain();CROWD.gain.value=0;cr.connect(cf).connect(CROWD).connect(MASTER);cr.start();
 }catch(e){AC=null}}
@@ -1163,7 +1277,7 @@ function inNordstan(x,z){return(x>10&&x<58&&z>-90&&z<-82)||(x>30&&x<38&&z>-100&&
 
 // ================= input =================
 let locked=false,fallbackLook=false;
-addEventListener('keydown',e=>{keys[e.code]=true;if(state!=='play')return;if(e.code==='KeyR')startReload();if(e.code==='KeyE')giveWeapon();if(e.code==='KeyC'||e.code==='Space'){crouchHeld=!crouchHeld;$('bJump').classList.toggle('act',crouchHeld)}if(e.code==='KeyP'||e.code==='Escape'){if(!locked)pause()}if(['Space','ArrowUp','ArrowDown'].includes(e.code))e.preventDefault()});
+addEventListener('keydown',e=>{keys[e.code]=true;if(state!=='play')return;if(e.code==='KeyM')setMusic(!MUS.on);if(e.code==='KeyR')startReload();if(e.code==='KeyE')giveWeapon();if(e.code==='KeyC'||e.code==='Space'){crouchHeld=!crouchHeld;$('bJump').classList.toggle('act',crouchHeld)}if(e.code==='KeyP'||e.code==='Escape'){if(!locked)pause()}if(['Space','ArrowUp','ArrowDown'].includes(e.code))e.preventDefault()});
 addEventListener('keyup',e=>{keys[e.code]=false});
 canvas.addEventListener('mousedown',e=>{if(isTouch)return;if(state!=='play')return;if(!locked&&!fallbackLook){lockPointer();return}if(e.button===0)mouseDown=true;if(e.button===2)adsHeld=true});
 addEventListener('mouseup',e=>{if(e.button===0)mouseDown=false;if(e.button===2)adsHeld=false});
@@ -1461,10 +1575,85 @@ function updateHud2(){
   const canGive=glenn.alive&&!glenn.armed&&glennDist()<3.6;$('prompt').style.display=canGive?'block':'none';$('bGive').style.display=canGive&&isTouch?'flex':'none';
 }
 
+// ================= music: original instrumental, Gothenburg ska meets indie-pop =================
+const MUS={on:true,gain:null,barTime:0,bar:0,timer:null,bus:null};
+try{MUS.on=localStorage.getItem('gbg_music')!=='0'}catch(e){}
+const BPM=152,E8=60/BPM/2,BAR=8*E8;
+const MIDI=n=>440*Math.pow(2,(n-69)/12);
+const CH={D:{root:38,tri:[62,66,69],arp:[74,78,81,86]},A:{root:45,tri:[61,64,69],arp:[73,76,81,85]},Bm:{root:47,tri:[59,62,66],arp:[71,74,78,83]},G:{root:43,tri:[59,62,67],arp:[71,74,79,83]},Em:{root:40,tri:[59,64,67],arp:[71,76,79,83]}};
+// melodies: [midi, eighths] (0 = rest) — original tunes
+const MEL_V=[[[66,2],[69,2],[74,2],[73,1],[74,1]],[[76,3],[73,1],[69,2],[0,2]],[[71,2],[74,2],[78,2],[76,1],[74,1]],[[74,3],[71,1],[67,4]],
+  [[66,1],[69,1],[74,2],[74,1],[76,1],[78,2]],[[76,2],[73,2],[69,2],[71,1],[73,1]],[[74,2],[71,2],[67,2],[69,2]],[[69,6],[0,2]]];
+const MEL_C=[[[79,2],[78,2],[76,2],[74,2]],[[78,3],[74,1],[74,4]],[[76,2],[76,1],[78,1],[76,2],[73,2]],[[74,2],[71,2],[0,2],[71,1],[74,1]],
+  [[79,2],[78,2],[76,2],[79,2]],[[81,3],[78,1],[74,4]],[[76,2],[78,2],[79,2],[76,2]],[[73,4],[69,2],[0,2]]];
+const PCS=[2,4,6,7,9,11,1];
+function third(n){if(!n)return 0;const i=PCS.indexOf(((n%12)+12)%12);if(i<0)return n-3;const j=(i+5)%7;return n-((PCS[i]-PCS[j]+12)%12)}
+const SONG=(()=>{const s=[];const add=(chs,o)=>chs.forEach((c,i)=>s.push(Object.assign({c},o,{mi:i})));
+  add(['D','A','Bm','G'],{sec:'intro'});
+  const V=['D','A','Bm','G','D','A','G','A'],C=['G','D','A','Bm','G','D','A','A'];
+  add(V,{sec:'verse'});add(C,{sec:'chorus'});add(V,{sec:'verse'});add(C,{sec:'chorus'});
+  add(['Em','G','D','A'],{sec:'break'});add(C,{sec:'chorus'});return s})();
+
+function musicInit(){if(!AC||MUS.gain)return;MUS.gain=AC.createGain();MUS.gain.gain.value=MUS.on?.3:0;
+  const comp=AC.createDynamicsCompressor();comp.threshold.value=-18;comp.ratio.value=3;MUS.gain.connect(comp).connect(MASTER);MUS.bus=MUS.gain;
+  MUS.barTime=AC.currentTime+.15;MUS.bar=0;MUS.timer=setInterval(musicTick,60)}
+function musicTick(){if(!AC||!MUS.on)return;if(MUS.barTime<AC.currentTime-.1){MUS.barTime=AC.currentTime+.05}
+  while(MUS.barTime<AC.currentTime+.45){scheduleBar(SONG[MUS.bar],MUS.barTime);MUS.barTime+=BAR;MUS.bar=(MUS.bar+1)%SONG.length;if(MUS.bar===0)MUS.bar=1}}
+function setMusic(on){MUS.on=on;try{localStorage.setItem('gbg_music',on?'1':'0')}catch(e){}
+  if(MUS.gain){MUS.gain.gain.setTargetAtTime(on?.3:0,AC.currentTime,.15);if(on){MUS.barTime=AC.currentTime+.1}}
+  document.querySelectorAll('.musicBtn').forEach(b=>{b.textContent=on?'♪ MUSIK PÅ':'♪ MUSIK AV';b.classList.toggle('off',!on)})}
+
+// --- instruments ---
+function env(g,t,a,peak,dec,sus,rel,len){g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(peak,t+a);g.gain.setTargetAtTime(peak*sus,t+a,dec);g.gain.setTargetAtTime(0,t+len,rel)}
+function kick(t,v){const o=AC.createOscillator(),g=AC.createGain();o.frequency.setValueAtTime(150,t);o.frequency.exponentialRampToValueAtTime(42,t+.12);g.gain.setValueAtTime(.9*v,t);g.gain.exponentialRampToValueAtTime(.001,t+.28);o.connect(g).connect(MUS.bus);o.start(t);o.stop(t+.3)}
+function nz(t,dur,type,f,q,v){const s=AC.createBufferSource();s.buffer=NOISE;const fl=AC.createBiquadFilter();fl.type=type;fl.frequency.value=f;fl.Q.value=q;const g=AC.createGain();g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+dur);s.connect(fl).connect(g).connect(MUS.bus);s.start(t,Math.random()*1.5);s.stop(t+dur+.02)}
+function snare(t,v){nz(t,.16,'bandpass',1900,.8,.55*v);const o=AC.createOscillator(),g=AC.createGain();o.frequency.setValueAtTime(210,t);o.frequency.exponentialRampToValueAtTime(140,t+.08);g.gain.setValueAtTime(.3*v,t);g.gain.exponentialRampToValueAtTime(.001,t+.1);o.connect(g).connect(MUS.bus);o.start(t);o.stop(t+.12)}
+function hat(t,open,v){nz(t,open?.13:.035,'highpass',7500,.7,(open?.16:.12)*v)}
+function tamb(t){nz(t,.09,'bandpass',9000,1.5,.12);nz(t+.03,.06,'bandpass',8000,1.5,.08)}
+function bass(t,n,len){const o=AC.createOscillator(),o2=AC.createOscillator(),f=AC.createBiquadFilter(),g=AC.createGain();o.type='sawtooth';o2.type='square';o.frequency.value=MIDI(n);o2.frequency.value=MIDI(n-12);
+  f.type='lowpass';f.frequency.setValueAtTime(900,t);f.frequency.exponentialRampToValueAtTime(260,t+len);f.Q.value=2;env(g,t,.008,.32,.15,.7,.03,len*.9);o.connect(f);o2.connect(f);f.connect(g).connect(MUS.bus);o.start(t);o2.start(t);o.stop(t+len+.2);o2.stop(t+len+.2)}
+function skank(t,notes,v){// offbeat organ+guitar chop
+  for(const n of notes){const o=AC.createOscillator(),o2=AC.createOscillator(),f=AC.createBiquadFilter(),g=AC.createGain();o.type='square';o2.type='triangle';o.frequency.value=MIDI(n);o2.frequency.value=MIDI(n+12)*1.003;
+    f.type='bandpass';f.frequency.value=1500;f.Q.value=.9;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.07*v,t+.005);g.gain.exponentialRampToValueAtTime(.001,t+.12);o.connect(f);o2.connect(f);f.connect(g).connect(MUS.bus);o.start(t);o2.start(t);o.stop(t+.15);o2.stop(t+.15)}}
+function horn(t,n,len,v,pan){if(!n)return;const o=AC.createOscillator(),o2=AC.createOscillator(),f=AC.createBiquadFilter(),g=AC.createGain();o.type='sawtooth';o2.type='sawtooth';o.frequency.value=MIDI(n);o2.frequency.value=MIDI(n)*1.006;
+  o.frequency.setValueAtTime(MIDI(n)*.97,t);o.frequency.linearRampToValueAtTime(MIDI(n),t+.04);
+  f.type='lowpass';f.Q.value=1.5;f.frequency.setValueAtTime(500,t);f.frequency.linearRampToValueAtTime(2600,t+.05);f.frequency.setTargetAtTime(1500,t+.06,.1);
+  env(g,t,.025,.13*v,.12,.75,.05,len*.92);let out=g;if(AC.createStereoPanner){const p=AC.createStereoPanner();p.pan.value=pan||0;g.connect(p);out=p}
+  o.connect(f);o2.connect(f);f.connect(g);out.connect(MUS.bus);o.start(t);o2.start(t);o.stop(t+len+.4);o2.stop(t+len+.4)}
+function glock(t,n,v){const o=AC.createOscillator(),o2=AC.createOscillator(),g=AC.createGain();o.type='sine';o2.type='sine';o.frequency.value=MIDI(n);o2.frequency.value=MIDI(n)*2.76;
+  g.gain.setValueAtTime(.09*v,t);g.gain.exponentialRampToValueAtTime(.001,t+.6);const g2=AC.createGain();g2.gain.value=.25;o.connect(g);o2.connect(g2).connect(g);g.connect(MUS.bus);o.start(t);o2.start(t);o.stop(t+.65);o2.stop(t+.65)}
+function jangle(t,notes,v){// bright strummed guitar on the 1 (indie-pop)
+  notes.forEach((n,i)=>{const tt=t+i*.012,o=AC.createOscillator(),f=AC.createBiquadFilter(),g=AC.createGain();o.type='sawtooth';o.frequency.value=MIDI(n+12);f.type='highpass';f.frequency.value=900;g.gain.setValueAtTime(.045*v,tt);g.gain.exponentialRampToValueAtTime(.001,tt+.5);o.connect(f).connect(g).connect(MUS.bus);o.start(tt);o.stop(tt+.55)})}
+
+function scheduleBar(b,t){const c=CH[b.c],sec=b.sec,full=sec!=='intro',e=E8;
+  // drums
+  for(let i=0;i<8;i++){const tt=t+i*e;
+    if(i===0||i===4)kick(tt,sec==='break'&&i===4?.6:1);
+    if(i===2||i===6)snare(tt,sec==='intro'?.7:1);
+    hat(tt,i%2===1,sec==='chorus'?1.1:.9);
+    if(sec==='chorus'&&(i===2||i===6))tamb(tt)}
+  if(b.mi%4===3&&full){snare(t+7*e,.6);snare(t+7.5*e,.8)}
+  // walking ska bass: root, 3rd/5th, octave, approach
+  const r=c.root,pat=[r,r+7,r+12,r+(b.mi%2?10:9)];pat.forEach((n,i)=>bass(t+i*2*e,n,2*e*.9));
+  // offbeat skank
+  for(let i=1;i<8;i+=2)skank(t+i*e,c.tri,sec==='intro'?.8:1);
+  // horns melody
+  const mel=sec==='verse'?MEL_V[b.mi]:sec==='chorus'?MEL_C[b.mi]:null;
+  if(mel){let tt=t;for(const [n,d] of mel){horn(tt,n,d*e,1,-.15);if(sec==='chorus')horn(tt,third(n),d*e,.7,.25);tt+=d*e}}
+  if(sec==='break'){horn(t,c.tri[2]+12,6*e,.55,0);horn(t,c.tri[1]+12,6*e,.45,.2)}
+  // indie-pop shimmer
+  if(sec==='chorus'||sec==='break'){jangle(t,c.tri.concat([c.tri[0]+12]),1);for(let i=0;i<8;i++)glock(t+i*e,c.arp[i%4],i%2?.6:1)}
+  else if(sec==='verse'&&b.mi%2===0)jangle(t,c.tri,.7);
+}
+
 // menu camera spot: Götaplatsen looking down Avenyn
 P.x=0;P.z=82;P.y=0;P.yaw=0;tramInit();matchInit();glennReset();
+document.querySelectorAll('.musicBtn').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();initAudio();if(AC&&AC.state==='suspended')AC.resume();setMusic(!MUS.on)}));
+document.querySelectorAll('.musicBtn').forEach(b=>b.addEventListener('touchstart',e=>{e.stopPropagation()},{passive:true}));
+setMusic(MUS.on);
+function skyFit(){const sv=document.querySelector('#menu .sky svg');if(sv)sv.setAttribute('preserveAspectRatio',innerWidth/innerHeight>1.3?'xMidYMax slice':'xMidYMax meet')}skyFit();addEventListener('resize',skyFit);
 requestAnimationFrame(frame);
-window.__G={trams,glenn,ULLEVI,MATCH,giveWeapon,setCrouch:v=>{crouchHeld=v},setAds:v=>{adsHeld=v},fire,wn:()=>WORLD.n,step:(n)=>{for(let i=0;i<n;i++){updateGame(.033);updateFx(.033)}},P,enemies:()=>enemies,state:()=>state,begin,boxes,dbg:()=>({wave,toSpawn,inWave,breakT,free:freeCells.length,reach:flow.filter(v=>v>=0).length,pc:cellOf(P.x,P.z),time})};
+window.__G={MUS,trams,glenn,ULLEVI,MATCH,giveWeapon,setCrouch:v=>{crouchHeld=v},setAds:v=>{adsHeld=v},fire,wn:()=>WORLD.n,step:(n)=>{for(let i=0;i<n;i++){updateGame(.033);updateFx(.033)}},P,enemies:()=>enemies,state:()=>state,begin,boxes,dbg:()=>({wave,toSpawn,inWave,breakT,free:freeCells.length,reach:flow.filter(v=>v>=0).length,pc:cellOf(P.x,P.z),time})};
 </script>
 </body>
 </html>
