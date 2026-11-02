@@ -79,6 +79,8 @@ canvas#gl{position:fixed;inset:0;width:100%;height:100%;display:block}
 #prompt{position:absolute;left:50%;bottom:30%;transform:translateX(-50%);font-size:14px;font-weight:700;letter-spacing:.1em;background:rgba(0,0,0,.55);padding:8px 14px;border-radius:4px;display:none;white-space:nowrap}
 #glennTag{position:absolute;transform:translate(-50%,-100%);font-size:11px;font-weight:800;letter-spacing:.2em;color:#7dffa3;text-shadow:0 1px 3px #000;display:none;white-space:nowrap}
 #glennTag.arm{color:#b8ffcb}
+#glennSay{position:absolute;left:50%;bottom:calc(76px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(560px,86vw);text-align:center;font-size:15px;line-height:1.35;background:rgba(10,30,16,.72);border:1px solid rgba(125,255,163,.45);padding:9px 14px;border-radius:6px;opacity:0;transition:opacity .4s;text-shadow:0 1px 2px #000}
+#glennSay b{color:#7dffa3;letter-spacing:.12em}
 #bPause{width:40px;height:40px;right:calc(14px + env(safe-area-inset-right));top:calc(70px + env(safe-area-inset-top));font-size:13px;border-radius:8px}
 /* menus */
 .scr{position:fixed;inset:0;display:none;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:24px;background:linear-gradient(180deg,rgba(18,22,26,.82),rgba(18,22,26,.94));z-index:5}
@@ -116,6 +118,7 @@ canvas#gl{position:fixed;inset:0;width:100%;height:100%;display:block}
   <div id="scoreBox"><div id="score">0</div><div id="kills">0 NEDSKJUTNA</div><div class="mini2"><div>GLENN HYSÉN</div><div class="bar"><i id="gHp"></i></div><div>ULLEVI</div><div class="bar"><i id="uHp"></i></div></div></div>
   <div id="duo">SIDA VID SIDA MED GLENN · ×2</div>
   <div id="glennTag">GLENN</div>
+  <div id="glennSay"></div>
   <div id="prompt">Tryck <b>E</b> – ge Glenn ett vapen</div>
   <div id="cross"><i class="a"></i><i class="b"></i><i class="c"></i><i class="d"></i></div>
   <div id="dot"></div>
@@ -1314,13 +1317,13 @@ function resetGame(){
   enemies=[];pickups=[];tracers=[];parts=[];tramInit();glennReset();ULLEVI.hp=ULLEVI.max;matchInit();wave=0;score=0;kills=0;heads=0;inWave=false;breakT=2.5;rand=mulberry32((Math.random()*1e9)|0);
   adsHeld=false;$('bAds').classList.remove('act');$('reload').style.display='none';computeFlow(P.x,P.z);
 }
-function begin(){initAudio();if(AC&&AC.state==='suspended')AC.resume();resetGame();state='play';
+function begin(){hushGlenn();initAudio();if(AC&&AC.state==='suspended')AC.resume();resetGame();state='play';
   $('menu').classList.remove('on');$('over').classList.remove('on');$('pause').classList.remove('on');$('hud').classList.add('on');if(isTouch){$('touch').classList.add('on');try{document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen().catch(()=>{})}catch(e){}}
   else lockPointer();
   msg('FRONTLINJE: GÖTEBORG','HÅLL GÖTAPLATSEN',2.5)}
-function pause(){if(state!=='play')return;state='pause';mouseDown=false;$('pause').classList.add('on');if(document.pointerLockElement)document.exitPointerLock()}
+function pause(){if(state!=='play')return;hushGlenn();state='pause';mouseDown=false;$('pause').classList.add('on');if(document.pointerLockElement)document.exitPointerLock()}
 function resume(){state='play';$('pause').classList.remove('on');if(AC&&AC.state==='suspended')AC.resume();if(!isTouch)lockPointer()}
-function gameOver(why){state='over';const T_={glenn:['GLENN HYSÉN HAR FALLIT','DU MISSLYCKADES'],ullevi:['ULLEVI HAR FALLIT','MATCHEN ÄR ÖVER'],p:['STAN HAR FALLIT','DU STUPADE']}[why||'p'];$('overTag').textContent=T_[0];$('overTitle').innerHTML=T_[1].replace(/ (\S+)$/,' <span>$1</span>');mouseDown=false;if(document.pointerLockElement)document.exitPointerLock();
+function gameOver(why){hushGlenn();state='over';const T_={glenn:['GLENN HYSÉN HAR FALLIT','DU MISSLYCKADES'],ullevi:['ULLEVI HAR FALLIT','MATCHEN ÄR ÖVER'],p:['STAN HAR FALLIT','DU STUPADE']}[why||'p'];$('overTag').textContent=T_[0];$('overTitle').innerHTML=T_[1].replace(/ (\S+)$/,' <span>$1</span>');mouseDown=false;if(document.pointerLockElement)document.exitPointerLock();
   const nb=score>best;if(nb){best=score;try{localStorage.setItem('gbg_best',best)}catch(e){}}
   $('stats').innerHTML=`Poäng: <b>${score}</b>${nb?' · NYTT REKORD!':''}<br>Våg: <b>${wave}</b> · Nedskjutna: <b>${kills}</b> · Headshots: <b>${heads}</b><br>Bästa: <b>${best}</b>`;
   setTimeout(()=>{$('over').classList.add('on');$('hud').classList.remove('on');$('touch').classList.remove('on')},900)}
@@ -1545,7 +1548,7 @@ function glennPick(){for(let i=0;i<40;i++){const c=freeCells[(rand()*freeCells.l
 function stepVia(arr,x,z){const c=cellOf(x,z);if(c<0)return null;let bd=arr[c]>=0?arr[c]:1e9,bn=-1;const ci=c%GW,cj=(c/GW)|0;for(const [di,dj] of DIRS){const ni=ci+di,nj=cj+dj;if(ni<0||nj<0||ni>=GW||nj>=GH)continue;const n=nj*GW+ni;if(arr[n]>=0&&arr[n]<bd){bd=arr[n];bn=n}}return bn>=0?cellCenter(bn):null}
 function glennDist(){return Math.hypot(glenn.x-P.x,glenn.z-P.z)}
 function sideBySide(){return glenn.alive&&glenn.armed&&glennDist()<35}
-function updateGlenn(dt){const g=glenn;if(!g.alive)return;g.flash=Math.max(0,g.flash-dt*5);
+function updateGlenn(dt){const g=glenn;if(!g.alive)return;glennJokes(dt);g.flash=Math.max(0,g.flash-dt*5);
   if(time-g.lastHurt>4)g.hp=Math.min(100,g.hp+6*dt);
   let tx=g.x,tz=g.z,sp=0,face=null;
   if(g.armed){const ox=P.x+Math.cos(P.yaw)*2.6,oz=P.z-Math.sin(P.yaw)*2.6,d=Math.hypot(ox-g.x,oz-g.z);
@@ -1561,7 +1564,7 @@ function updateGlenn(dt){const g=glenn;if(!g.alive)return;g.flash=Math.max(0,g.f
   const s2=Math.hypot(g.vx,g.vz);g.walk+=s2*dt*2.6;const fy=face!==null?face:(s2>.3?Math.atan2(g.vx,g.vz):g.yaw);let dy=fy-g.yaw;while(dy>Math.PI)dy-=TAU;while(dy<-Math.PI)dy+=TAU;g.yaw+=dy*Math.min(1,dt*9);
 }
 function glennHurt(n,fx,fz){const g=glenn;if(!g.alive||state!=='play')return;g.hp-=n;g.lastHurt=time;g.flash=1;if(time-g.warnT>6){g.warnT=time;feed('GLENN BESKJUTS!','#ff8a6a')}if(g.hp<=0){g.hp=0;g.alive=false;gameOver('glenn')}}
-function giveWeapon(){if(state!=='play'||!glenn.alive||glenn.armed||glennDist()>3.6)return;glenn.armed=true;SFX.pickup();setTimeout(()=>SFX.bell(),300);
+function giveWeapon(){if(state!=='play'||!glenn.alive||glenn.armed||glennDist()>3.6)return;glenn.armed=true;glenn.jokeT=R(25,35);SFX.pickup();glennSay('Gott mos änna!',4);
   msg('GLENN HYSÉN ÄR BEVÄPNAD','NI STRIDER SIDA VID SIDA – DUBBEL STYRKA',3.5)}
 function drawGlenn(){const g=glenn;if(!g.alive)return;drawHuman(g.armed?HG.glennArmed:HG.glenn,g.x,0,g.z,g.yaw,g.walk,Math.hypot(g.vx,g.vz),[g.flash*.6,g.flash*.2,g.flash*.1])}
 function glennTag(){const el=$('glennTag');const g=glenn;if(!g.alive||state!=='play'){el.style.display='none';return}
@@ -1574,6 +1577,30 @@ function updateHud2(){
   $('duo').style.display=sideBySide()?'block':'none';
   const canGive=glenn.alive&&!glenn.armed&&glennDist()<3.6;$('prompt').style.display=canGive?'block':'none';$('bGive').style.display=canGive&&isTouch?'flex':'none';
 }
+
+// ================= Glenn talks =================
+const GLENN_JOKES=[
+  'Vad kallar man en robot som spelar i GAIS? – En makrill-bot!',
+  'Varför skjuter robotarna alltid snett? – De är programmerade i Stockholm.',
+  'Varför gick roboten till Feskekôrka? – Den ville ha lite kodfisk.',
+  'Vad sa spårvagnen som kom försent? – Förlåt, jag tappade spåret vid Brunnsparken.',
+  'Hur vet man att en robot är från Göteborg? – Den skruvar på sig när den skrattar.',
+  'Vad sa robotmamman i Haga? – Ät upp din kanelbulle, den är full av järn!',
+  'Vad sa Läppstiftet till Poseidon? – Snygg fisk, men du kunde väl ta på dig nåt.',
+  'Varför har göteborgare alltid paraply i strid? – Det är det enda skydd som funkar i det här vädret.',
+  'Vad sa Älvsborgsbron till Götaälvbron? – Du är allt lite låg i tak, du.',
+  'Vad sa måsen på Stenpiren? – Ge mig räkmackan eller ge mig döden!',
+  'Varför blev roboten utslängd från Nordstan? – Den försökte betala med skruv och mutter.',
+  'Vad kallar man en robot på Liseberg? – En berg-och-dal-bot!',
+  'Varför rostar inga robotar på Avenyn? – Det är för dyrt att stå still där.',
+  'Varför vinner robotarna aldrig på Ullevi? – De har en skruv lös på mittfältet.'
+];
+let jokeOrder=[],jokeI=0;
+function speakSv(txt){try{if(!window.speechSynthesis||!MUS)return;const u=new SpeechSynthesisUtterance(txt.replace(/ – /g,'... '));u.lang='sv-SE';const vs=speechSynthesis.getVoices();const v=vs.find(v=>/^sv/i.test(v.lang)&&/male|man|oskar|alvar|mattias/i.test(v.name))||vs.find(v=>/^sv/i.test(v.lang));if(v)u.voice=v;u.rate=1.0;u.pitch=.8;u.volume=1;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+function glennSay(txt,dur){const el=$('glennSay');el.innerHTML='<b>GLENN:</b> '+txt;el.style.opacity=1;clearTimeout(glennSay.t);glennSay.t=setTimeout(()=>el.style.opacity=0,(dur||7)*1000);speakSv(txt)}
+function glennJokes(dt){const g=glenn;if(!g.alive||!g.armed||state!=='play')return;if(glennDist()>35)return;g.jokeT-=dt;
+  if(g.jokeT<=0){if(!jokeOrder.length||jokeI>=jokeOrder.length){jokeOrder=GLENN_JOKES.map((_,i)=>i).sort(()=>Math.random()-.5);jokeI=0}glennSay(GLENN_JOKES[jokeOrder[jokeI++]],8);g.jokeT=R(50,75)}}
+function hushGlenn(){try{window.speechSynthesis&&speechSynthesis.cancel()}catch(e){}const el=$('glennSay');if(el)el.style.opacity=0}
 
 // ================= music: original instrumental, Gothenburg ska meets indie-pop =================
 const MUS={on:true,gain:null,barTime:0,bar:0,timer:null,bus:null};
