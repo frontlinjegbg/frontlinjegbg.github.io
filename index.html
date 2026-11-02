@@ -1548,7 +1548,7 @@ function glennPick(){for(let i=0;i<40;i++){const c=freeCells[(rand()*freeCells.l
 function stepVia(arr,x,z){const c=cellOf(x,z);if(c<0)return null;let bd=arr[c]>=0?arr[c]:1e9,bn=-1;const ci=c%GW,cj=(c/GW)|0;for(const [di,dj] of DIRS){const ni=ci+di,nj=cj+dj;if(ni<0||nj<0||ni>=GW||nj>=GH)continue;const n=nj*GW+ni;if(arr[n]>=0&&arr[n]<bd){bd=arr[n];bn=n}}return bn>=0?cellCenter(bn):null}
 function glennDist(){return Math.hypot(glenn.x-P.x,glenn.z-P.z)}
 function sideBySide(){return glenn.alive&&glenn.armed&&glennDist()<35}
-function updateGlenn(dt){const g=glenn;if(!g.alive)return;glennJokes(dt);g.flash=Math.max(0,g.flash-dt*5);
+function updateGlenn(dt){const g=glenn;if(!g.alive)return;g.flash=Math.max(0,g.flash-dt*5);
   if(time-g.lastHurt>4)g.hp=Math.min(100,g.hp+6*dt);
   let tx=g.x,tz=g.z,sp=0,face=null;
   if(g.armed){const ox=P.x+Math.cos(P.yaw)*2.6,oz=P.z-Math.sin(P.yaw)*2.6,d=Math.hypot(ox-g.x,oz-g.z);
@@ -1564,7 +1564,7 @@ function updateGlenn(dt){const g=glenn;if(!g.alive)return;glennJokes(dt);g.flash
   const s2=Math.hypot(g.vx,g.vz);g.walk+=s2*dt*2.6;const fy=face!==null?face:(s2>.3?Math.atan2(g.vx,g.vz):g.yaw);let dy=fy-g.yaw;while(dy>Math.PI)dy-=TAU;while(dy<-Math.PI)dy+=TAU;g.yaw+=dy*Math.min(1,dt*9);
 }
 function glennHurt(n,fx,fz){const g=glenn;if(!g.alive||state!=='play')return;g.hp-=n;g.lastHurt=time;g.flash=1;if(time-g.warnT>6){g.warnT=time;feed('GLENN BESKJUTS!','#ff8a6a')}if(g.hp<=0){g.hp=0;g.alive=false;gameOver('glenn')}}
-function giveWeapon(){if(state!=='play'||!glenn.alive||glenn.armed||glennDist()>3.6)return;glenn.armed=true;glenn.jokeT=R(25,35);SFX.pickup();glennSay('Gott mos änna!',4);
+function giveWeapon(){if(state!=='play'||!glenn.alive||glenn.armed||glennDist()>3.6)return;glenn.armed=true;SFX.pickup();glennSay('Gott mos änna!',4);
   msg('GLENN HYSÉN ÄR BEVÄPNAD','NI STRIDER SIDA VID SIDA – DUBBEL STYRKA',3.5)}
 function drawGlenn(){const g=glenn;if(!g.alive)return;drawHuman(g.armed?HG.glennArmed:HG.glenn,g.x,0,g.z,g.yaw,g.walk,Math.hypot(g.vx,g.vz),[g.flash*.6,g.flash*.2,g.flash*.1])}
 function glennTag(){const el=$('glennTag');const g=glenn;if(!g.alive||state!=='play'){el.style.display='none';return}
@@ -1579,27 +1579,8 @@ function updateHud2(){
 }
 
 // ================= Glenn talks =================
-const GLENN_JOKES=[
-  'Vad kallar man en robot som spelar i GAIS? – En makrill-bot!',
-  'Varför skjuter robotarna alltid snett? – De är programmerade i Stockholm.',
-  'Varför gick roboten till Feskekôrka? – Den ville ha lite kodfisk.',
-  'Vad sa spårvagnen som kom försent? – Förlåt, jag tappade spåret vid Brunnsparken.',
-  'Hur vet man att en robot är från Göteborg? – Den skruvar på sig när den skrattar.',
-  'Vad sa robotmamman i Haga? – Ät upp din kanelbulle, den är full av järn!',
-  'Vad sa Läppstiftet till Poseidon? – Snygg fisk, men du kunde väl ta på dig nåt.',
-  'Varför har göteborgare alltid paraply i strid? – Det är det enda skydd som funkar i det här vädret.',
-  'Vad sa Älvsborgsbron till Götaälvbron? – Du är allt lite låg i tak, du.',
-  'Vad sa måsen på Stenpiren? – Ge mig räkmackan eller ge mig döden!',
-  'Varför blev roboten utslängd från Nordstan? – Den försökte betala med skruv och mutter.',
-  'Vad kallar man en robot på Liseberg? – En berg-och-dal-bot!',
-  'Varför rostar inga robotar på Avenyn? – Det är för dyrt att stå still där.',
-  'Varför vinner robotarna aldrig på Ullevi? – De har en skruv lös på mittfältet.'
-];
-let jokeOrder=[],jokeI=0;
 function speakSv(txt){try{if(!window.speechSynthesis||!MUS)return;const u=new SpeechSynthesisUtterance(txt.replace(/ – /g,'... '));u.lang='sv-SE';const vs=speechSynthesis.getVoices();const v=vs.find(v=>/^sv/i.test(v.lang)&&/male|man|oskar|alvar|mattias/i.test(v.name))||vs.find(v=>/^sv/i.test(v.lang));if(v)u.voice=v;u.rate=1.0;u.pitch=.8;u.volume=1;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
 function glennSay(txt,dur){const el=$('glennSay');el.innerHTML='<b>GLENN:</b> '+txt;el.style.opacity=1;clearTimeout(glennSay.t);glennSay.t=setTimeout(()=>el.style.opacity=0,(dur||7)*1000);speakSv(txt)}
-function glennJokes(dt){const g=glenn;if(!g.alive||!g.armed||state!=='play')return;if(glennDist()>35)return;g.jokeT-=dt;
-  if(g.jokeT<=0){if(!jokeOrder.length||jokeI>=jokeOrder.length){jokeOrder=GLENN_JOKES.map((_,i)=>i).sort(()=>Math.random()-.5);jokeI=0}glennSay(GLENN_JOKES[jokeOrder[jokeI++]],8);g.jokeT=R(50,75)}}
 function hushGlenn(){try{window.speechSynthesis&&speechSynthesis.cancel()}catch(e){}const el=$('glennSay');if(el)el.style.opacity=0}
 
 // ================= music: original instrumental, Gothenburg ska meets indie-pop =================
